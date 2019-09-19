@@ -1,4 +1,4 @@
-version: '3.2'
+version: "3.2"
 
 services:
   elasticsearch:
@@ -61,6 +61,24 @@ services:
       - "5601:5601"
     networks:
       - elk
+    depends_on:
+      - elasticsearch
+
+  filebeat:
+    image: docker.elastic.co/beats/filebeat:6.2.2
+    command: filebeat -e -strict.perms=false
+    #volumnes mount depend on you OS ( Windows or Linux )
+    volumes:
+      - type: bind
+        source: ./filebeat/config/filebeat.yml
+        target: /usr/share/filebeat/filebeat.yml
+        read_only: true
+    networks:
+      - elk
+    # links:
+    #   - elasticsearch
+    #   - kibana
+    #   - logstash
     depends_on:
       - elasticsearch
 
