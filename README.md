@@ -64,10 +64,10 @@ Other available stack variants:
 * 1.5 GB of RAM
 
 By default, the stack exposes the following ports:
-* 5000: Logstash TCP input
-* 9200: Elasticsearch HTTP
-* 9300: Elasticsearch TCP transport
-* 5601: Kibana
+* 9093: Logstash TCP input
+* 9091: Elasticsearch HTTP
+* 9092: Elasticsearch TCP transport
+* 9095: Kibana
 
 > :information_source: Elasticsearch's [bootstrap checks][booststap-checks] were purposely disabled to facilitate the
 > setup of the Elastic stack in development environments. For production setups, we recommend users to set up their host
@@ -159,7 +159,7 @@ $ docker-compose restart kibana logstash
 ### Injecting data
 
 Give Kibana about a minute to initialize, then access the Kibana web UI by hitting
-[http://localhost:5601](http://localhost:5601) with a web browser and use the following default credentials to log in:
+[http://localhost:9095](http://localhost:9095) with a web browser and use the following default credentials to log in:
 
 * user: *elastic*
 * password: *\<your generated elastic password>*
@@ -168,7 +168,7 @@ Now that the stack is running, you can go ahead and inject some log entries. The
 you to send content via TCP:
 
 ```console
-$ nc localhost 5000 < /path/to/logfile.log
+$ nc localhost 9093 < /path/to/logfile.log
 ```
 
 You can also load the sample data provided by your Kibana installation.
@@ -190,7 +190,7 @@ configuration.
 Create an index pattern via the Kibana API:
 
 ```console
-$ curl -XPOST -D- 'http://localhost:5601/api/saved_objects/index-pattern' \
+$ curl -XPOST -D- 'http://localhost:9095/api/saved_objects/index-pattern' \
     -H 'Content-Type: application/json' \
     -H 'kbn-version: 7.3.1' \
     -u elastic:<your generated elastic password> \

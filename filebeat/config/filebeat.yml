@@ -9,15 +9,15 @@ setup.template.pattern: "filebeat-*"
 
 output.logstash:
   enabled: true
-  hosts: ["logstash:5000"]
+  hosts: ["logstash:9093"]
 
 # setup.kibana:
-#   host: http://kibana:5601
+#   host: http://kibana:9095
 #   username: elastic
 #   password: changeme
 
 # output.elasticsearch:
-#   hosts: http://elasticsearch:9200
+#   hosts: http://elasticsearch:9091
 #   username: elastic
 #   password: changeme
 #   index: "filebeat-%{[beat.version]}-%{+yyyy.MM.dd}"
